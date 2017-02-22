@@ -48,4 +48,29 @@
             <version>0.5.3</version>
         </dependency>
     </dependencies>
+    <name>OpenUtils</name>
+    <description>The open source utilitary of tessi lab</description>
+    <url>https://github.com/tessi-lab/OpenUtils</url>
+    
+    <licenses>
+        <license>
+            <name>The Apache License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+        </license>
+    </licenses>
+    
+    <developers>
+        <developer>
+            <name>Andres Bel Alonso</name>
+            <email>andres.bel-alonso@tessilab.io</email>
+            <organization>Tessi lab</organization>
+            <organizationUrl>www.tessilab.io</organizationUrl>
+        </developer>
+    </developers>
+  
+    <scm>
+        <connection>scm:git:git://github.com/tessi-lab/OpenUtils.git</connection>
+        <developerConnection>scm:git:ssh://github.com/tessi-lab/OpenUtils.git</developerConnection>
+        <url>http://github.com/tessi-lab/OpenUtils.git/tree/master</url>
+    </scm>
 </project>
