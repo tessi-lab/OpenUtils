@@ -70,7 +70,16 @@
   
     <scm>
         <connection>scm:git:git://github.com/tessi-lab/OpenUtils.git</connection>
-        <developerConnection>scm:git:ssh://github.com/tessi-lab/OpenUtils.git</developerConnection>
+        <developerConnection>scm:git:origin</developerConnection>
         <url>http://github.com/tessi-lab/OpenUtils.git/tree/master</url>
+        <tag>OpenUtils-1.0.0</tag>
     </scm>
+  
+  
+    <distributionManagement>
+        <repository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>
+    </distributionManagement>   
 </project>
