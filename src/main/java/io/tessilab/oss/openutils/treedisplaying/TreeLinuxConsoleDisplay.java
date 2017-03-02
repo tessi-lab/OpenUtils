@@ -18,16 +18,7 @@ package io.tessilab.oss.openutils.treedisplaying;
 import java.io.PrintStream;
 
 /**
- * Displays a tree like in linux console. An example can be :
- * <p>
- *  ├── root <br/>
- *  │   ├── param1 <br/>
- *  │   │   ├── param2 <br/>
- *  │   │   │   └── param3 <br/>
- *  │   │   └── param4 <br/>
- *  │   ├── param5 <br/>
- *  │   │   └── param6 <br/>
- * <p>
+ * Displays a tree like in linux console. 
  * The classes to display must implement {@link io.tessilab.oss.openutils.treedisplaying.TreeStructure}
  * @author Andres BEL ALONSO
  */
