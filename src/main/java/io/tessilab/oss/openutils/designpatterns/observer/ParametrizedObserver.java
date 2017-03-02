@@ -25,12 +25,10 @@ package io.tessilab.oss.openutils.designpatterns.observer;
 public interface ParametrizedObserver<T> {
 
     /**
-     * @author Andres BEL ALONSO
      *
-     *
-     * /**
+     * 
      * This method is called by the subject to utpdate the state of the observer
-     * @param obj
+     * @param obj : The information passed to the observer
      */
     public void updateObserver(T obj);
 }

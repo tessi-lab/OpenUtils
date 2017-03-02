@@ -76,6 +76,14 @@ public class ElasticSearchHelper implements AutoCloseable {
         return client;
     }
 
+    /**
+     * Performs a multiget request to the ElasticSearch database.
+     * 
+     * @param multiGetRequestBuilder : The builder to create the multirequest
+     * @return The answer of the database
+     * @throws HelperMissingContentException This exeception is throw when the 
+     * multiget fails
+     */
     public MultiGetResponse getMultiGetResponse(MultiGetRequestBuilder multiGetRequestBuilder) throws HelperMissingContentException {
         boolean done = false;
         MultiGetResponse multiGetResponse = null;
@@ -103,6 +111,19 @@ public class ElasticSearchHelper implements AutoCloseable {
 
     }
 
+    /**
+     * Performs a prepare index to the ElasticSearch database. This action creates 
+     * a document in {index that has been defined to this helper}/type/id 
+     * <p>
+     * If this request fails one time, the helper will wait and retry to do it.
+     * It will retry almost an hour before throwing a {@link io.tessilab.oss.openutils.elasticsearch.ElasticSearchHelperError}
+     * @param type The type of document in the index
+     * @param id The id of the document
+     * @param attemptNumber The number attempt number to do this request. Out of this
+     * class, this value should be 0
+     * @param json A json with the information that will be add to the document
+     * @return The answer of the database.
+     */
     public IndexResponse prepareIndex(String type, String id, int attemptNumber, Map<String, Object> json) {
         try {
             IndexResponse response = helperClient.prepareIndex(index, type, id).setSource(json).get();
@@ -122,6 +143,19 @@ public class ElasticSearchHelper implements AutoCloseable {
         }
     }
 
+    /**
+     * Performs a prepare index to the ElasticSearch database. This action creates 
+     * a document in {index that has been defined to this helper}/type/id 
+     * <p>
+     * If this request fails one time, the helper will wait and retry to do it.
+     * It will retry almost an hour before throwing a {@link io.tessilab.oss.openutils.elasticsearch.ElasticSearchHelperError}
+     * @param type The type of document in the index
+     * @param id The id of the document
+     * @param attemptNumber The number attempt number to do this request. Out of this
+     * class, this value should be 0
+     * @param xb A json with the information that will be add to the document
+     * @return The answer of the database.
+     */    
     public IndexResponse prepareIndex(String type, String id, int attemptNumber, XContentBuilder xb) {
         try {
             IndexResponse response = helperClient.prepareIndex(index, type, id).setSource(xb).get();
@@ -140,7 +174,21 @@ public class ElasticSearchHelper implements AutoCloseable {
             throw new ElasticSearchHelperError(e);
         }
     }
-
+    
+    /**
+     * Performs a prepare index to the ElasticSearch database. This action creates 
+     * a document in {index that has been defined to this helper}/type/{some_id} 
+     * <p>
+     * The database will give an identification to the document
+     * <p>
+     * If this request fails one time, the helper will wait and retry to do it.
+     * It will retry almost an hour before throwing a {@link io.tessilab.oss.openutils.elasticsearch.ElasticSearchHelperError}
+     * @param type The type of document in the index
+     * @param attemptNumber The number attempt number to do this request. Out of this
+     * class, this value should be 0
+     * @param json A json with the information that will be add to the document
+     * @return The answer of the database.
+     */
     public IndexResponse prepareIndex(String type, int attemptNumber, Map<String, Object> json) {
         try {
             IndexResponse response = helperClient.prepareIndex(index, type).setSource(json).get();
@@ -160,6 +208,19 @@ public class ElasticSearchHelper implements AutoCloseable {
         }
     }
 
+    /**
+     * Performs a get action on the ElasticSearchDatabase. This action will retrive
+     * the document in  {index that has been defined to this helper}/type/id .
+     * <p>
+     * If this request fails one time, the helper will wait and retry to do it.
+     * It will retry almost an hour before throwing a {@link io.tessilab.oss.openutils.elasticsearch.ElasticSearchHelperError}
+     * 
+     * @param type The type of document in the index
+     * @param id The id of the document
+     * @param attemptNumber The number attempt number to do this request. Out of this
+     * class, this value should be 0
+     * @return The answer of the database with the informations of the requested document
+     */
     public GetResponse prepareGet(String type, String id, int attemptNumber) {
         try {
             GetResponse response = helperClient.prepareGet(index, type, id).get();
@@ -180,14 +241,21 @@ public class ElasticSearchHelper implements AutoCloseable {
     }
 
     /**
-     * Updates
+     * Performs an update action on the ElasticSearch database. This will change
+     * the values over an existing document, and in a precise field. The change document will be : 
+     * {index that has been defined to this helper}/type/id .
+     * <p>
+     * If this request fails one time, the helper will wait and retry to do it.
+     * It will retry almost an hour before throwing a {@link io.tessilab.oss.openutils.elasticsearch.ElasticSearchHelperError}
      * 
-     * @param type
-     * @param iD
-     * @param attemptNumber
-     * @param fieldName
-     * @param value
-     * @return
+     * 
+     * @param type The type of document in the index
+     * @param iD The id of the document
+     * @param attemptNumber The number attempt number to do this request. Out of this
+     * class, this value should be 0
+     * @param fieldName The name of the field to change
+     * @param value The new value to the field
+     * @return The answer of the database, describing if the change has been done or not. 
      */
     public UpdateResponse update(String type, String iD, int attemptNumber, String fieldName, Object value) {
         try {
@@ -218,22 +286,50 @@ public class ElasticSearchHelper implements AutoCloseable {
         }
     }
 
+    /**
+     * 
+     * @return The index in wich this helper is writing 
+     */
     public String getSavingIndex() {
         return index;
     }
 
+    /**
+     * 
+     * @return A multiget object to perform a multiget action
+     */
     public MultiGetRequestBuilder prepareMultiGet() {
         return helperClient.prepareMultiGet();
     }
 
+    /**
+     * 
+     * @return An object to do a bulk
+     */
     public BulkRequestBuilder prepareBulk() {
         return helperClient.prepareBulk();
     }
 
+    /**
+     * Simply created an index on {index that has been defined to this helper}/type/id.
+     * @param type The type of document in the index
+     * @param iD The id of the document
+     * @return The answer of the database
+     */
     public IndexRequestBuilder prepareIndex(String type, String iD) {
         return helperClient.prepareIndex(this.index, type, iD);
     }
 
+    /**
+     * Performs a bulk action on the database. 
+     * <p>
+     * If this request fails one time, the helper will wait and retry to do it.
+     * It will retry almost an hour before throwing a {@link io.tessilab.oss.openutils.elasticsearch.ElasticSearchHelperError}
+     * @param bulkRequest The object that build the request
+     * @param attemptNumber The number attempt number to do this request. Out of this
+     * class, this value should be 0
+     * @return The answer of the database
+     */
     public BulkResponse executeBulkRequest(BulkRequestBuilder bulkRequest, int attemptNumber) {
         try {
             return bulkRequest.execute().actionGet();
@@ -256,7 +352,19 @@ public class ElasticSearchHelper implements AutoCloseable {
     public void close() {
         helperClient.close();
     }
-
+    
+    /**
+     * Performs a delete action on the ElasticSearch database. This will delete the
+     * document on  {index that has been defined to this helper}/type/id.
+     * <p>
+     * If this request fails one time, the helper will wait and retry to do it.
+     * It will retry almost an hour before throwing a {@link io.tessilab.oss.openutils.elasticsearch.ElasticSearchHelperError}
+     * @param type The type of document in the index
+     * @param description The id of the document
+     * @param attemptNumber The number attempt number to do this request. Out of this
+     * class, this value should be 0
+     * @return The answer of the database
+     */
     public DeleteResponse prepareDelete(String type, String description, int attemptNumber) {
         try {
             return helperClient.prepareDelete(this.index, type, description).get();

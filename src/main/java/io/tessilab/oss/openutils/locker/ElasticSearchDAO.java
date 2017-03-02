@@ -83,7 +83,7 @@ public class ElasticSearchDAO implements DAO {
     /**
      * Writes the job as done
      *
-     * @param description
+     * @param description The job to mark as done
      */
     @Override
     public void writeJobDone(String description) {

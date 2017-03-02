@@ -19,25 +19,28 @@ package io.tessilab.oss.openutils.designpatterns.observer;
 /**
  * The subject of the observer designe pattern. 
  * @author Andres BEL ALONSO
- * @param <T>
+ * @param <T> The type that contains the information that the subject pass to the
+ * {@link io.tessilab.oss.openutils.designpatterns.observer.ParametrizedObserver}
  */
 public interface ParametrizedSubject<T> {
+    
     /**
      * Notifies to all the observers than a changement has overcome. 
      * The information that is going to be send is passed as argument
-     * @param info
+     * @param info  The info gived to the 
+     * {@link io.tessilab.oss.openutils.designpatterns.observer.ParametrizedObserver}
      */
     public void notifyObservers(T info);
     
     /**
      * Attach the observer passed in argument to this subject
-     * @param observer 
+     * @param observer The observer to attach
      */
     public void attach(ParametrizedObserver<T> observer);
     
     /**
      * Removes the observer passed in argument to this method from this observer
-     * @param observer 
+     * @param observer The observer to remove
      */
     public void removeObserver(ParametrizedObserver<T> observer);
 }

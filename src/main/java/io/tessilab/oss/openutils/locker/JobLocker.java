@@ -42,8 +42,8 @@ public class JobLocker<JOBTYPE extends JobParameter> {
 
     /**
      *
-     * @param dao
-     * @param pID
+     * @param dao The object allowing to access to the database
+     * @param pID The id of the process that will use the joblocker
      * @param doNonEndedJobs : true if we will do non ended job to are locked
      * for too long
      * @param tooOldLock : How much MILISECONDS must pass to consider that a job
@@ -126,7 +126,7 @@ public class JobLocker<JOBTYPE extends JobParameter> {
     
     /**
      * 
-     * @param job
+     * @param job The job to verify if is ended or not
      * @return True if the job passed in argument is marqued as ended or not in 
      * the database. 
      */

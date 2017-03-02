@@ -40,7 +40,7 @@ public class ProgressBar {
     /**
      * Increase the internal counter of the progress bar BUT the bar display 
      * is not refresh.
-     * @param val 
+     * @param val The number of values to advance
      */
     public void stepBy(long val) {
         progressState.stepBy(val);

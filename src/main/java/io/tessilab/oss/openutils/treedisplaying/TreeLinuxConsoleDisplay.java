@@ -20,15 +20,13 @@ import java.io.PrintStream;
 /**
  * Displays a tree like in linux console. An example can be :
  * <p>
- * <code>
- * ├── root <br/>
- * │   ├── param1 <br/>
- * │   │   ├── param2 <br/>
- * │   │   │   └── param3 <br/>
- * │   │   └── param4 <br/>
- * │   ├── param5 <br/>
- * │   │   └── param6 <br/>
- * <code>
+ *  ├── root <br/>
+ *  │   ├── param1 <br/>
+ *  │   │   ├── param2 <br/>
+ *  │   │   │   └── param3 <br/>
+ *  │   │   └── param4 <br/>
+ *  │   ├── param5 <br/>
+ *  │   │   └── param6 <br/>
  * <p>
  * The classes to display must implement {@link io.tessilab.oss.openutils.treedisplaying.TreeStructure}
  * @author Andres BEL ALONSO

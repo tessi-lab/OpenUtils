@@ -60,7 +60,9 @@ public class FileUtils {
     /**
      * @param filePath
      *            Can be a resource path or a local file path.
+     * @param resourcesOnly true if the file must be read from the java ressource folder
      * @return The string of the file content.
+     * @throws java.io.IOException if there was a problem reading the file
      */
     public static String fileToString(String filePath, boolean resourcesOnly) throws IOException {
         try {
@@ -78,6 +80,12 @@ public class FileUtils {
         }
     }
 
+    /**
+     * 
+     * @param filePath The path to the file
+     * @return A list with all the lines on the file
+     * @throws IOException If there was a problem reading the file
+     */
     public static List<String> getFileLines(String filePath) throws IOException {
         return getFileLines(filePath, false);
     }
@@ -85,7 +93,9 @@ public class FileUtils {
     /**
      * @param filePath
      *            Can be a resource path or a local file path.
+     * @param resourcesOnly true if the file must be read from the java ressource folder
      * @return The file content, cut into lines.
+     * @throws java.io.IOException if there was a problem reading the file
      */
     public static List<String> getFileLines(String filePath, boolean resourcesOnly) throws IOException {
         String content = fileToString(filePath, resourcesOnly);
@@ -112,8 +122,8 @@ public class FileUtils {
      * @param path
      *            Should end with "/", but not start with one.
      * @return Just the name of each member item, not the full paths.
-     * @throws URISyntaxException
-     * @throws IOException
+     * @throws URISyntaxException A problem related to paths
+     * @throws IOException A problem related to file reading
      */
     public static String[] getResourceListing(Class clazz, String path) throws URISyntaxException, IOException {
         URL dirURL = clazz.getClassLoader().getResource(path);
@@ -167,6 +177,7 @@ public class FileUtils {
      *            The object to serialize.
      * @param path
      *            must be local
+     * @throws java.io.IOException A problem when writing the file
      */
     public static void serialize(Serializable obj, String path) throws IOException {
         try {
@@ -185,6 +196,7 @@ public class FileUtils {
      * @param path
      *            A resource path.
      * @return The serialized object.
+     * @throws java.io.IOException A problem when writing the file
      */
     public static Object deserialize(String path) throws IOException {
         Object obj = null;

@@ -24,21 +24,21 @@ public interface DAO {
 
     /**
      * Reads a lock entry identify by the parameter.
-     * @param lockID
+     * @param lockID The id of the lock to read
      * @return 
      */
     public DAOResponse readLockEntry(String lockID);
 
     /**
      * Writes the entry in order to lock the job.
-     * @param description : The description of the entry
-     * @param iD : The id of the the lock.
+     * @param description  The description of the entry
+     * @param iD  The id of the the lock.
      */
     public void writeEntry(String description, String iD);
 
     /**
      * Marks the entry identify by the parameter as done.
-     * @param lockID 
+     * @param lockID The id of the lock to write to
      */
     public void writeJobDone(String lockID);
 
@@ -49,7 +49,7 @@ public interface DAO {
 
     /**
      * Deletes the lock.
-     * @param lockID 
+     * @param lockID The id of the lock to delete
      */
     public void deleteEntry(String lockID);
     

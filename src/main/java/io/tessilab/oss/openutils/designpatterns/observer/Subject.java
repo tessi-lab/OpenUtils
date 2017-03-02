@@ -31,13 +31,13 @@ public interface Subject {
     
     /**
      * Attach the observer passed in argument to this subject
-     * @param observer 
+     * @param observer The observer to attach
      */
     public void attach(Observer observer);
     
     /**
      * Removes the observer passed in argument to this method from this observer
-     * @param observer 
+     * @param observer The observer to remove
      */
     public void removeObserver(Observer observer);
     
