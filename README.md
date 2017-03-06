@@ -9,6 +9,11 @@ The easier way to install it is to download from maven central repository. For t
             <artifactId>OpenUtils</artifactId>
             <version>1.0.0</version>
         </dependency>
+        
+        
+## JavaDocs
+
+You can find the project JavaDocs at https://tessi-lab.github.io/OpenUtils/latest/index.html
 
 ## Content 
 
