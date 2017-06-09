@@ -62,7 +62,7 @@ public class JobLocker<JOBTYPE extends JobParameter> {
      *
      * @param time : The time in seconds
      */
-    public void setWaitTime(int time) {
+    public void setWaitTime(int waitTime) {
         this.waitTime = (waitTime < 0 ? 5000 : waitTime);
     }
 
