@@ -25,7 +25,7 @@ public interface DAO {
     /**
      * Reads a lock entry identify by the parameter.
      * @param lockID The id of the lock to read
-     * @return 
+     * @return The response of the data acess object
      */
     public DAOResponse readLockEntry(String lockID);
 
