@@ -13,32 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.tessilab.oss.openutils.data;
+package io.tessilab.oss.openutils.distance.bbox;
 
-/**
- * Throw when a content loader has loaded the content, but this content is malformed and does not respect the 
- * constraints that must respect
- * @author david
- */
-public class ConsistancyException extends Exception {
+import io.tessilab.oss.openutils.bbox.BBoxable;
 
-    /**
-     * 
-     */
-    private static final long serialVersionUID = -3423434797053706826L;
+public class ThirdBBoxDistance implements BBoxDistance {
 
-    public ConsistancyException() {
-        super();
+    @Override
+    public double computeDistance(BBoxable bb1, BBoxable bb2) {
+        double eH = Math.abs(bb1.getBBox().getCenterX() - bb2.getBBox().getCenterX()) - bb1.getBBox().getWidth() / 3.0 - bb2.getBBox().getWidth() / 3.0;
+        double eV = Math.abs(bb1.getBBox().getCenterY() - bb2.getBBox().getCenterY()) - bb1.getBBox().getHeight() / 3.0 - bb2.getBBox().getHeight() / 3.0;
+        return Math.sqrt(eH * eH + eV * eV);
     }
-
-    public ConsistancyException(String message) {
-        super(message);
-    }
-
-    public ConsistancyException(Throwable cause) {
-        super(cause);
-    }
-    
-    
-
 }

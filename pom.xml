@@ -53,6 +53,12 @@
             <version>1.3</version>
             <type>jar</type>
         </dependency>
+        <dependency>
+            <groupId>org.jsoup</groupId>
+            <artifactId>jsoup</artifactId>
+            <version>1.8.1</version>
+            <type>jar</type>
+        </dependency>
     </dependencies>
     <name>OpenUtils</name>
     <description>The open source utilitary of tessi lab</description>

@@ -13,32 +13,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.tessilab.oss.openutils.data;
+package io.tessilab.oss.openutils.hocr;
 
-/**
- * Throw when a content loader has loaded the content, but this content is malformed and does not respect the 
- * constraints that must respect
- * @author david
- */
-public class ConsistancyException extends Exception {
+import io.tessilab.oss.openutils.hocr.ContentType;
+import io.tessilab.oss.openutils.hocr.NTContent;
+import static org.junit.Assert.assertEquals;
 
-    /**
-     * 
-     */
-    private static final long serialVersionUID = -3423434797053706826L;
+import java.awt.Rectangle;
 
-    public ConsistancyException() {
-        super();
+import org.junit.Test;
+
+public class TestNTContent {
+
+    @Test
+    public void testGetters() {
+        ContentType type = ContentType.FRAME;
+        Rectangle r = new Rectangle(0, 4, 30, 45);
+        NTContent nt = new NTContent(type, r);
+        assertEquals(type, nt.getType());
+        assertEquals(r, nt.getBBox());
     }
-
-    public ConsistancyException(String message) {
-        super(message);
-    }
-
-    public ConsistancyException(Throwable cause) {
-        super(cause);
-    }
-    
-    
 
 }

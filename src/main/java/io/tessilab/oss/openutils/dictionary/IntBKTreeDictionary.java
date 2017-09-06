@@ -13,32 +13,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.tessilab.oss.openutils.data;
+package io.tessilab.oss.openutils.dictionary;
 
-/**
- * Throw when a content loader has loaded the content, but this content is malformed and does not respect the 
- * constraints that must respect
- * @author david
- */
-public class ConsistancyException extends Exception {
+import io.tessilab.oss.openutils.distance.words.LevenshteinDistance;
 
-    /**
-     * 
-     */
-    private static final long serialVersionUID = -3423434797053706826L;
+public class IntBKTreeDictionary extends Dictionary {
 
-    public ConsistancyException() {
+    public IntBKTreeDictionary() {
         super();
     }
 
-    public ConsistancyException(String message) {
-        super(message);
+    public IntBKTreeDictionary(String path) {
+        super(path);
     }
 
-    public ConsistancyException(Throwable cause) {
-        super(cause);
+    @Override
+    protected void initWordTree() {
+        wordTree = new IntBKTree<String>(new LevenshteinDistance(1e-3));
     }
-    
-    
 
 }

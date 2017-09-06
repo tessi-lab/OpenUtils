@@ -13,32 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.tessilab.oss.openutils.data;
+package io.tessilab.oss.openutils.hocr;
 
-/**
- * Throw when a content loader has loaded the content, but this content is malformed and does not respect the 
- * constraints that must respect
- * @author david
- */
-public class ConsistancyException extends Exception {
+public enum ReadingDirection {
+    LEFT_TO_RIGHT, RIGHT_TO_LEFT, UNDEFINED_DIRECTION;
 
-    /**
-     * 
-     */
-    private static final long serialVersionUID = -3423434797053706826L;
-
-    public ConsistancyException() {
-        super();
+    public static String toHocrString(ReadingDirection dir) {
+        switch (dir) {
+        case LEFT_TO_RIGHT:
+            return "ltr";
+        case RIGHT_TO_LEFT:
+            return "rtl";
+        case UNDEFINED_DIRECTION:
+            return "undefined";
+        default:
+            return "undefined";
+        }
     }
-
-    public ConsistancyException(String message) {
-        super(message);
-    }
-
-    public ConsistancyException(Throwable cause) {
-        super(cause);
-    }
-    
-    
-
 }

@@ -13,32 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.tessilab.oss.openutils.data;
+package io.tessilab.oss.openutils.hocr;
 
-/**
- * Throw when a content loader has loaded the content, but this content is malformed and does not respect the 
- * constraints that must respect
- * @author david
- */
-public class ConsistancyException extends Exception {
+public class HocrSyntaxException extends Exception {
 
-    /**
-     * 
-     */
-    private static final long serialVersionUID = -3423434797053706826L;
+    private static final long serialVersionUID = 6877296857693193080L;
 
-    public ConsistancyException() {
+    public HocrSyntaxException() {
         super();
     }
 
-    public ConsistancyException(String message) {
+    public HocrSyntaxException(String message) {
         super(message);
     }
 
-    public ConsistancyException(Throwable cause) {
-        super(cause);
+    public HocrSyntaxException(String message, Throwable throwable) {
+        super(message, throwable);
     }
-    
-    
 
 }

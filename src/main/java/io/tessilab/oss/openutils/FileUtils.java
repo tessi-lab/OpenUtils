@@ -41,7 +41,6 @@ import org.apache.logging.log4j.Logger;
 
 /**
  * The class containing many usefull functions related with IO files.
- * @author Andres BEL ALONSO
  */
 public class FileUtils {
 
