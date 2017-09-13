@@ -29,7 +29,7 @@ import org.apache.logging.log4j.Logger;
  * is using it
  *
  * @author Andres BEL ALONSO
- * @param <T>
+ * @param <T> The type of object that will be shared
  */
 public class SharedClosable<T extends AutoCloseable> {
 
@@ -114,7 +114,8 @@ public class SharedClosable<T extends AutoCloseable> {
     /**
      * Inidicates that this thread has stoped to use the SharedClosable
      *
-     * @throws IOException
+     * @throws SharedClosableRuntimeException When the object is asked to release the resources, 
+     * but the resources is still used
      */
     public synchronized void release() throws SharedClosableRuntimeException {
         if (nbUsers == 0) {

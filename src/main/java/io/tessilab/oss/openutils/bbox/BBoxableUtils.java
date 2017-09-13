@@ -36,6 +36,7 @@ public class BBoxableUtils {
     }
 
     /**
+     * @param <T> The type of {@link io.tessilab.oss.openutils.bbox.BBoxable} used in this method
      * @param elements
      *            A list of elements with a bounding box.
      * @param distance
@@ -91,6 +92,7 @@ public class BBoxableUtils {
      * Go through all the element, and merge a element into a larger element if
      * that element contains at least <b>percentContainedMin</b> percent of it.
      * 
+     * @param <T> The type of {@link io.tessilab.oss.openutils.bbox.BBoxable} used in this method
      * @param elements
      *            A list of element with a bounding box.
      * @param pourcentContainedMin
@@ -159,6 +161,7 @@ public class BBoxableUtils {
 
     /***
      * 
+     * @param <T> The type of {@link io.tessilab.oss.openutils.bbox.BBoxable} used in this method
      * @param elements
      *            list of elements
      * @param rectangle
@@ -187,6 +190,8 @@ public class BBoxableUtils {
     }
 
     /**
+     * @param r1 A first rectangle
+     * @param r2 A second rectangle
      * @return the area of intersection between r1 and r2
      */
     public static double getIntersectionArea(BBoxable r1, BBoxable r2) {
@@ -199,9 +204,11 @@ public class BBoxableUtils {
     }
 
     /**
+     * @param <T> The type of {@link io.tessilab.oss.openutils.bbox.BBoxable} used in this method
      * @param bbs
      *            A list of BBoxable
-     * @return The union of all the bboxes of the elements of bbs. </br>
+     * @return The union of all the bboxes of the elements of bbs.
+     * <p>
      *         <b>null</b> if bbs was empty.
      */
     public static <T extends BBoxable> Rectangle2D bBoxUnion(List<T> bbs) {

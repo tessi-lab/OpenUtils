@@ -35,27 +35,43 @@ public class StringUtils {
         // dummy private constructor
     }
 
+    /**
+     * 
+     * @param input A string to verify if it is an integer
+     * @return True if the input string is an Integer
+     */
     public static boolean isInteger(String input) {
         try {
             Integer.parseInt(input);
             return true;
         } catch (Exception e) {
-            LOGGER.trace(e);
+//            LOGGER.trace(e);
             return false;
         }
     }
 
+    /**
+     * 
+     * @param input A string to verify if it is an float
+     * @return True if the input string is a float
+     */
     public static boolean isFloat(String input) {
         try {
             String input2 = input.replaceAll("[,]+", ".");
             Float.parseFloat(input2);
             return true;
         } catch (Exception e) {
-            LOGGER.trace(e);
+//            LOGGER.trace(e);
             return false;
         }
     }
 
+    /**
+     * Verifies g and kg for weights, ml, l and cl for volumes, min for time, b and gb for hardware storage units, 
+     * m, mm, cm and km for a distance and a %. 
+     * @param input An input string that will be tested in its integrity. 
+     * @return True if the input string represents the abbreviation of an unit
+     */
     public static boolean isUnit(String input) {
         /* Poids */
         if ("g".equals(input) || "kg".equals(input)) {
@@ -87,8 +103,8 @@ public class StringUtils {
     /**
      * Tests if the string is of the type "25cl" or "300g", for example.
      *
-     * @param input
-     * @return
+     * @param input The input string to test
+     * @return True if the string is a numbre followed by an unit
      */
     public static boolean isNumberUnit(String input) {
         if (input.length() >= 2) {
@@ -109,6 +125,15 @@ public class StringUtils {
         return false;
     }
 
+    /**
+     * Applies a global process to clean a string
+     * @param s The string to clean 
+     * @param removeAccents true if the accents must be removed
+     * @param removeDigits true if the digits of must be deleted
+     * @param toLowerCase true if all the letters of the string must be switched to lower case letters
+     * @param nonAsciiToKeep A table with the non ascii characters to keep. 
+     * @return The cleaned string. 
+     */
     public static String cleanUpString(String s, boolean removeAccents, boolean removeDigits, boolean toLowerCase, String[] nonAsciiToKeep) {
         String str = Normalizer.normalize(s, Normalizer.Form.NFD);
 
@@ -147,16 +172,30 @@ public class StringUtils {
         return str.trim();
     }
 
-    public static String banCharFromList(String s, String[] charList) {
-        String res = new String(s);
-        for (String danger : charList) {
+    /**
+     * Bans all the string specied in stringlist from the given string
+     * @param s The string to modify
+     * @param stringList The table with all the strings that must be removed
+     * @return s without the elements that matchs (in the sense of String.replaceAll(stringList[i],"")) with
+     * stringList
+     */
+    public static String banCharFromList(String s, String[] stringList) {
+        String res = s;
+        for (String danger : stringList) {
             res = res.replaceAll(danger, "");
         }
         return res;
     }
 
+    /**
+     * Deletes the last character from a string if the string is not empty and it is one of the characters of 
+     * charList
+     * @param s The string to process
+     * @param charList The list of posible characters to ban 
+     * @return s without his last character if his last character was in charList
+     */
     public static String banCharAtTheEndFromList(String s, char[] charList) {
-        String res = new String(s);
+        String res = s;
         boolean checked = false;
         while (!"".equals(res) && !checked) {
             checked = true;
@@ -172,6 +211,13 @@ public class StringUtils {
         return res;
     }
 
+    /**
+     * Deletes the first character from a string if the string is not empty and it is one of the characters of 
+     * charList
+     * @param s The string to modify
+     * @param charList The list of posible characters to ban 
+     * @return  s without his first character if his last character was in charList
+     */
     public static String banCharAtTheBeginningFromList(String s, char[] charList) {
         String res = new String(s);
         boolean checked = false;
@@ -192,9 +238,9 @@ public class StringUtils {
     /**
      * Returns TRUE if s belong to the list.
      * 
-     * @param s
-     * @param list
-     * @return
+     * @param s The string to check 
+     * @param list The list of string to verify
+     * @return True if s is equal to at least one string of list
      */
     public static boolean isFromList(String s, String[] list) {
         for (String str : list) {
@@ -207,27 +253,29 @@ public class StringUtils {
     /**
      * Search for other units types that are not conventional and replace it by
      * the conventional ones
+     * @param s The string representing an unit
+     * @return A gramm will be returned as g, a liter as l, a mililiter as ml and a centiliter as cl
      */
     public static String unifyUnits(String s) {
         /* Unit: mass */
         if ("gr".equals(s) || "grammes".equals(s))
-            return new String("g");
+            return "g";
         /* Unit: volume */
         if ("litre".equals(s) || "litres".equals(s) || "litro".equals(s))
-            return new String("l");
+            return "l";
         if ("mk".equals(s) || "millilitre".equals(s))
-            return new String("ml");
+            return "ml";
         if ("centilitre".equals(s) || "centilitres".equals(s))
-            return new String("cl");
+            return "cl";
 
         return s;
     }
 
     /**
-     * returns TRUE if the word is a determinant or a preposition...
+     * returns TRUE if the word is a french determinant or a french preposition...
      * 
-     * @param s
-     * @return
+     * @param s The string to analyse
+     * @return True is s is a french determinant
      */
     public static boolean isDeterminant(String s) {
         /* Defenis */
@@ -268,8 +316,8 @@ public class StringUtils {
     /**
      * returns TRUE if the word is a vitamin name
      * 
-     * @param s
-     * @return
+     * @param s The string to analyse
+     * @return True if it represents a vitamine name
      */
     public static boolean isVitaminName(String s) {
         /* Letter vitamin */
@@ -292,9 +340,24 @@ public class StringUtils {
         return false;
     }
 
+    /**
+     * This function verifies that s is an EAN13. It verifies if it contains only 13 numbers and its checksum. 
+     * @param s The string to verify
+     * @return true if the string is a coherent ean13 barcode
+     */
     public static boolean isEAN13(String s) {
         if (s.length() == 13 && StringUtils.isInteger(s.substring(0, 6)) && StringUtils.isInteger(s.substring(6))) {
-            return true;
+            // checksum verification at : http://barcode-coder.com/en/ean-13-specification-102.html
+            int[] intRep = new int[13];
+            for(int i=0; i<13; i++) {
+                // The the numbers are numerated from right to left
+                intRep[12 - i] = Integer.valueOf(s.substring(i, i+1));
+            }
+            // the control digit is in intRep[0]
+            int odd = intRep[1] + intRep[3] + intRep[5] + intRep[7] + intRep[9] + intRep[11];
+            int even = intRep[2] + intRep[4] + intRep[6] + intRep[8] + intRep[10] + intRep[12];
+            int expectedValue = ((10 - (3*odd + even)%10))%10;
+            return expectedValue==intRep[0];
         }
         return false;
     }

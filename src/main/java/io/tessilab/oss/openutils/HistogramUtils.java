@@ -38,6 +38,7 @@ public class HistogramUtils {
     }
 
     /**
+     * @param histo The bounds defining the histogram
      * @return The max of the histogram
      */
     public static Double findHistoMax(double[] histo) {
@@ -46,6 +47,7 @@ public class HistogramUtils {
 
     /**
      * @param histo
+     *            The bounds defining the histogram
      * @param start
      *            The (included) starting position from which we look for the
      *            max.
@@ -66,6 +68,7 @@ public class HistogramUtils {
     }
 
     /**
+     * @param histo The bounds defining the histogram
      * @return The min of the histogram
      */
     public static Double findHistoMin(double[] histo) {
@@ -73,7 +76,7 @@ public class HistogramUtils {
     }
 
     /**
-     * @param histo
+     * @param histo The histogram
      * @param start
      *            The (included) starting position from which we look for the
      *            min.
@@ -94,10 +97,10 @@ public class HistogramUtils {
     }
 
     /**
-     * @param histo
-     * @param kernel1D
-     *            (must be of length odd)
-     * @return
+     * @param histo The bounds defining the histogram
+     * @param kernel1D The kernel tp perform the convolution
+     *            (must be of length odd) 
+     * @return The convolucioned histogram
      */
     public static double[] convolveHisto(double[] histo, double[] kernel1D) {
         double[] convolve = new double[histo.length];

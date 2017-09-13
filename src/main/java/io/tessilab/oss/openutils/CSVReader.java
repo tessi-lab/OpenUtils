@@ -54,11 +54,12 @@ public class CSVReader {
      * The constructor sets the current line on the first line (who is expected
      * to be the columns name line)
      * 
-     * @param separator
-     * @param filePath
-     * @param encoding
-     *            : by default UTF8
-     * @throws io.tessilab.utils.CSVReader.CSVReadingException
+     * Throws io.tessilab.utils.CSVReader.CSVReadingException If there is a problem when readin the file. 
+     * @param separator The character used as separator in the csv file
+     * @param filePath The absolute path to the csv file that is going to be read. 
+     * @param hasHeader True if the file has a first header line. In other words, a line that names the different
+     * columns of the csv file. 
+     * @param encoding The type of encoding of the csv file. By default UTF8
      */
     public CSVReader(String separator, String filePath, boolean hasHeader, String encoding) {
         this.separator = separator;
@@ -85,9 +86,13 @@ public class CSVReader {
      * The constructor sets the current line on the first line (who is expected
      * to be the columns name line)
      * 
-     * @param separator
-     * @param filePath
-     * @throws io.tessilab.utils.CSVReader.CSVReadingException
+     * throws io.tessilab.oss.openutil.CSVReader.CSVReadingException  
+     * If there is an IOException during the execution of the read
+     * 
+     * @param separator The character used as separator in the csv file
+     * @param filePath The absolute path to the csv file that is going to be read. 
+     * @param hasHeader True if the file has a first header line. In other words, a line that names the different
+     * columns of the csv file. 
      */
     public CSVReader(String separator, String filePath, boolean hasHeader) {
         this(separator, filePath, hasHeader, "UTF8");
@@ -95,10 +100,10 @@ public class CSVReader {
 
     /**
      * Reads the next line
+     * throws io.tessilab.oss.openutil.CSVReader.CSVReadingException
+     *              If there is an IOException during the execution of the read
      * 
      * @return true if the readed line is not null
-     * @throws io.tessilab.utils.CSVReader.CSVReadingException
-     *             : If there is an IOException during the execution of the read
      */
     public boolean readNextLine() {
         try {
@@ -122,9 +127,8 @@ public class CSVReader {
     /**
      * Returns the content in the column number
      * 
-     * @param colNumber
-     *            : the first column index is 0
-     * @return
+     * @param colNumber the first column index is 0
+     * @return The field content in colNumber
      */
     public String getColNumber(int colNumber) {
         if (colNumber < 0 || colNumber > curTab.length) {
@@ -135,8 +139,7 @@ public class CSVReader {
 
     /**
      * 
-     * @param columnName
-     *            : The name of the column
+     * @param columnName The name of the column
      * @return The content of the column or an exception if this name does not
      *         exist
      */
@@ -158,6 +161,19 @@ public class CSVReader {
      */
     public String getCurLine() {
         return curLine;
+    }
+    
+    /**
+     * Reads a line. If CSVReadingException is throw, the next line is readed. 
+     * @param reader
+     * @return The output of the last reader.readnextLine() that did not throw an exception
+     */
+    public static boolean secureReadNextLine(CSVReader reader) {
+        try {
+            return reader.readNextLine();
+        } catch(CSVReadingException ex) {
+            return CSVReader.secureReadNextLine(reader);
+        }
     }
 
 }

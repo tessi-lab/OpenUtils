@@ -21,8 +21,9 @@ import java.awt.geom.AffineTransform;
 import java.awt.geom.Rectangle2D;
 
 /**
- * A class representing a object which has a bounding box.</br>For more useful
- * methods, see BBoxableUtils.
+ * A class representing a object which has a bounding box.
+ * <p>
+ * For more useful methods, see BBoxableUtils.
  * 
  * @author galaad
  */

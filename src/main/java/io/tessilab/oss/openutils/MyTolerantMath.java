@@ -23,10 +23,6 @@ import java.util.Collection;
  * @author galaad
  *
  */
-/**
- * @author galaad
- *
- */
 public class MyTolerantMath {
 
     private double tolerance;
@@ -50,8 +46,8 @@ public class MyTolerantMath {
 
     /**
      * 
-     * @param a
-     * @param b
+     * @param a First double
+     * @param b Second double
      * @return TRUE if a is equal to b with a tolerance
      */
     public boolean tolEquals(double a, double b) {
@@ -60,8 +56,8 @@ public class MyTolerantMath {
 
     /**
      * 
-     * @param a
-     * @param b
+     * @param a The first double
+     * @param b The second double
      * @return 0 if a is equal to b with a tolerance. A value less than zero if
      *         a is less than b. A value greater than zero if a is greater than
      *         b.
@@ -74,10 +70,10 @@ public class MyTolerantMath {
      * Check whether a double <b>x</b> is between <b>d1</b> and <b>d2</b>. Not
      * Strict (can be equal to the extrema).
      * 
-     * @param x
-     * @param d1
-     * @param d2
-     * @return a boolean.
+     * @param x The value to test
+     * @param d1 To lowest border
+     * @param d2 The higher border
+     * @return True if x is between d1 and d2, false otherwise.
      */
     public boolean tolIsInRange(double x, double d1, double d2) {
         return tolCompare(x, d1) >= 0 && tolCompare(x, d2) <= 0;
@@ -90,7 +86,7 @@ public class MyTolerantMath {
      *            The double we are searching.
      * @param c
      *            A collection of double.
-     * @return a boolean.
+     * @return True if the collection c contains x, false otherwise
      */
     public boolean tolContains(double x, Collection<Double> c) {
         return c.stream().filter(d -> tolEquals(d, x)).findFirst().isPresent();

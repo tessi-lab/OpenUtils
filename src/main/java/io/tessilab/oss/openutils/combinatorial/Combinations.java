@@ -15,7 +15,6 @@
  */
 package io.tessilab.oss.openutils.combinatorial;
 
-import io.tessilab.oss.openutils.combinatorial.Distributions;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,8 +41,8 @@ public class Combinations {
     }
 
     /**
-     * @param k
-     * @param n
+     * @param k The k-tuple
+     * @param n The n posibilities
      * @return An array containing all the possible k-tuple (in increasing
      *         order) in [0, n-1]
      */
@@ -67,8 +66,8 @@ public class Combinations {
     }
 
     /**
-     * @param k
-     * @param n
+     * @param k The k-tuple
+     * @param n The n posibilities
      * @return An array containing all the possible k-tuple (in increasing
      *         order) in [0, n-1]
      */

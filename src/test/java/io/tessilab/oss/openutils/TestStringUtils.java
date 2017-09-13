@@ -58,4 +58,16 @@ public class TestStringUtils {
     public void testCleanUpStringMixHard() {
         assertEquals("Bad Clean Up", "ooerdqkfo©p{a√ﬁe", StringUtils.cleanUpString("oOœeR®†dqKFƒÒ©pø2’2{78å·›√ﬁË", true, true, true, new String[] { "©", "√", "ﬁ" }));
     }
+    
+    @Test
+    public void testIsEAN13Barcode() {
+        assertEquals(false, StringUtils.isEAN13("hgtpo12479I06"));
+        assertEquals(false, StringUtils.isEAN13("4578907654678"));
+        assertEquals(false, StringUtils.isEAN13("4578907654678786")); 
+        assertEquals(true, StringUtils.isEAN13("2109876543210"));
+        assertEquals(true,StringUtils.isEAN13("3560070330744"));
+        assertEquals(true,StringUtils.isEAN13("3270190113720"));
+        assertEquals(true,StringUtils.isEAN13("9781783322190"));
+        assertEquals(true,StringUtils.isEAN13("3560070793808"));        
+    }
 }
