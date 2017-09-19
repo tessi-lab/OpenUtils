@@ -70,6 +70,6 @@ public abstract class InstanceFactory<T> {
      * 
      * @return new instance of T
      */
-    public abstract T createInstance();
+    protected abstract T createInstance();
     
 }
