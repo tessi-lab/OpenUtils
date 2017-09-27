@@ -24,7 +24,7 @@ import org.javaruntype.type.Type;
 
 /**
  * Defines the interface of an object that is able to load some content from an identifier.
- *
+ * The content loader is thread safe if the concrete implementation is also thread safe.
  * @author david
  * @param <LOADED_TYPE>
  * @param <IDENTIFIER_TYPE>

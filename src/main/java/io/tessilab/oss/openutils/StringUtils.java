@@ -18,9 +18,10 @@ package io.tessilab.oss.openutils;
 import java.text.Normalizer;
 import java.util.Arrays;
 import java.util.regex.Pattern;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+
 
 public class StringUtils {
 
