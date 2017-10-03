@@ -196,7 +196,7 @@ public class TestCSVReader {
         reader.readNextLine();
     }
     
-//    @Test
+    @Test
     public void testCSVWithEscapeChar() {
         setUpWithEscapeChar();
         reader.readNextLine();
@@ -209,7 +209,7 @@ public class TestCSVReader {
         assertEquals("guauguau", reader.getColNumber(2));
         reader.readNextLine();
         assertEquals("45",reader.getColNumber(0));
-        assertEquals("Melanie",reader.getColNumber(0));
-        assertEquals("hi girls",reader.getColNumber(0));
+        assertEquals("Melanie",reader.getColNumber(1));
+        assertEquals("hi girls",reader.getColNumber(2));
     }
 }

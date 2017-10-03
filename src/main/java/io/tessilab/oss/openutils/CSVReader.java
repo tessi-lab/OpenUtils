@@ -204,7 +204,7 @@ public class CSVReader {
                    res[i] = separatedBlocks.get(i);
                }
                for(int i=separatedBlocks.size(); i<separatedBlocks.size() + otherElmts.length; i++) {
-                   res[i] = otherElmts[i];
+                   res[i] = otherElmts[i-separatedBlocks.size()];
                }
                return res;
            } else if(nextEscape > nextSeparator) {
@@ -223,8 +223,8 @@ public class CSVReader {
                    // this is the last column
                    nextSeparator = curLineMet.length();
                }
-               separatedBlocks.add(curLineMet.substring(0,nextSeparator));
-               curLineMet = curLineMet.substring(nextSeparator + 1);
+               separatedBlocks.add(curLineMet.substring(0,nextSeparator).replace(escapeChar, ""));
+               curLineMet = curLineMet.substring(nextSeparator==curLineMet.length()?nextSeparator:nextSeparator + 1);
            }
         }
         String[] resTab = new String[separatedBlocks.size()];
