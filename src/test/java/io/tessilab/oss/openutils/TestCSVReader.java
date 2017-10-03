@@ -15,7 +15,6 @@
  */
 package io.tessilab.oss.openutils;
 
-import io.tessilab.oss.openutils.CSVReader;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 import org.junit.Test;
@@ -50,6 +49,22 @@ public class TestCSVReader {
             fail("File not found");
         }
         reader = new CSVReader(",", csvPath, true);
+    }
+    
+    public void setUpWithEscapeChar() {
+        String csvPath = this.getClass().getClassLoader().getResource("csvtest/CSVWithEscape").getPath();
+        if ("".equals(csvPath)) {
+            fail("File not found");
+        }
+        reader = new CSVReader(",", csvPath, true, "UTF-8", "\"");
+    }
+    
+    public void setUpMalformedWithEscape() {
+        String csvPath = this.getClass().getClassLoader().getResource("csvtest/MalformedWithEscape").getPath();
+        if ("".equals(csvPath)) {
+            fail("File not found");
+        }
+        reader = new CSVReader(",", csvPath, true, "UTF-8", "\"");        
     }
 
     @Test
@@ -173,5 +188,28 @@ public class TestCSVReader {
         setUp();
         reader.readNextLine();
         reader.getColName("fjkdsl g");
+    }
+    
+    @Test(expected = CSVReader.CSVReadingException.class)
+    public void testMalformedWithEscape() {
+        setUpMalformedWithEscape();
+        reader.readNextLine();
+    }
+    
+//    @Test
+    public void testCSVWithEscapeChar() {
+        setUpWithEscapeChar();
+        reader.readNextLine();
+        assertEquals("13",reader.getColName("id"));
+        assertEquals("supercat",reader.getColNumber(1));
+        assertEquals("hi, i'm a super, cleverCat",reader.getColName("talk_phrase"));
+        reader.readNextLine();
+        assertEquals("31",reader.getColNumber(0));
+        assertEquals("dog, the red",reader.getColNumber(1));
+        assertEquals("guauguau", reader.getColNumber(2));
+        reader.readNextLine();
+        assertEquals("45",reader.getColNumber(0));
+        assertEquals("Melanie",reader.getColNumber(0));
+        assertEquals("hi girls",reader.getColNumber(0));
     }
 }
