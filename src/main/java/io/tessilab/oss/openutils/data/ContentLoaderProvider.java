@@ -17,6 +17,8 @@ package io.tessilab.oss.openutils.data;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.function.Predicate;
+import java.util.stream.Stream;
 import org.javaruntype.type.Type;
 
 /**
@@ -54,6 +56,15 @@ public class ContentLoaderProvider {
     public<LOADED_TYPE,IDENTIFIER_TYPE> void addContentLoader(ContentLoader<LOADED_TYPE,IDENTIFIER_TYPE> contentLoader) {
         contentLoaderMap.put((new TwoTypesIndex<>(contentLoader.getLoadedType(),contentLoader.getIdentifierType())),
                 contentLoader);
+    }
+
+    /**
+     * Gets a stream of contentLoaders that verifies a criterium.
+     * @param filter The filter to apply to the content loaders
+     * @return The stream of content loaders contained in this provider that matches the filter
+     */
+    public Stream<ContentLoader<?,?>> getContentLoaderStream(Predicate< ? super ContentLoader<?,?>> filter) {
+        return this.contentLoaderMap.values().stream().filter(filter);
     }
     
 }
