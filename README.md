@@ -10,6 +10,13 @@ The easier way to install it is to download from maven central repository. For t
             <version>1.0.0</version>
         </dependency>
         
+Many files have been added. To have the last updates (not avaible yet at maven central repository), the easier way to use OpenUtils, is to clone the repository, and run a maven install. Next, add to the pom the next dependency : 
+
+        <dependency>
+            <groupId>io.tessilab.oss</groupId>
+            <artifactId>OpenUtils</artifactId>
+            <version>1.1.0-SNAPSHOT</version>
+        </dependency>
         
 ## JavaDocs
 
@@ -17,9 +24,16 @@ You can find the project JavaDocs at https://tessi-lab.github.io/OpenUtils/lates
 
 ## Content 
 
-Tessilab OpenUtils contains : 
+Tessilab OpenUtils contains, in each package : 
 
-* Some useful functions to read files, to transform files it to a String, etc. (cf FileUtils, from the package _io.tessilab.openutils_)
+### _io.tessilab.openutils_
+
+
+
+* Some useful functions to read files, to transform files it to a String, etc. (cf FileUtils, from the package _io.tessilab.openutils_) A simple CSV reader.
+
+* Some data structures, as a HashMap containing (as values) anothers HashMaps (class HashMapMap).
+
 
 * Two ways to implement the observer design pattern. In the first one, the observer must access the subject using the subject accessors. In the other, the subject provides the information via a parametrizable object. Both ways are implemented in interfaces in the package _io.tessilab.oss.openutils.designpatterns.observer_
 
@@ -42,5 +56,4 @@ Tessilab OpenUtils contains :
 │   ├── param5
 │   │   └── param6
 ```
-
 
