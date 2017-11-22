@@ -26,7 +26,7 @@ You can find the project JavaDocs at https://tessi-lab.github.io/OpenUtils/lates
 
 Tessilab OpenUtils contains, in each package : 
 
-### _io.tessilab.openutils_
+#### _io.tessilab.openutils_
 
 * **FileUtils** : Some useful functions to read files, to transform files it to a String, etc. 
 
@@ -46,31 +46,49 @@ Tessilab OpenUtils contains, in each package :
 
 * **StringUtils** :  An API to perform operations on String.
 
-### _io.tessilab.openutils.bbox_
+#### _io.tessilab.openutils.bbox_
 
 Some classes to work with the interface BBoxable. An object that implements the BBoxable interface is an object that can be surrounded by a rectangle. A generic object is given (BBoxer) and some util files (BBoxableGroup, BBoxableUtils). 
 
-### _io.tessilab.openutils.data_
+#### _io.tessilab.openutils.data_
 
 A package containing the data acess utilies, the ContentLoader class, and the class to manage the instances, the ContentLoaderProvider. A ContentLoader is a class that adds an abstract layer in the files and external elements manage by your application. 
 
 A ContentLoader loads objects indexed by other types of object, both of them parametrized. A cache can be enable, so save the output in a map. 
 
-### _io.tessilab.oss.openutils.designpatterns.observer_
+#### _io.tessilab.oss.openutils.designpatterns.observer_
 
 Two ways to implement the observer design pattern. In the first one, the observer must access the subject using the subject accessors. In the other, the subject provides the information via a parametrizable object. Both ways are implemented in interfaces in this package.
 
-### _io.tessilab.oss.openutils.dictionary_
+#### _io.tessilab.oss.openutils.dictionary_
 
-Many dictionnary implementations. Words are stocked in a BK-Tree ( http://blog.notdot.net/2007/4/Damn-Cool-Algorithms-Part-1-BK-Treeshttp://blog.notdot.net/2007/4/Damn-Cool-Algorithms-Part-1-BK-Trees ) 
+Many dictionnary implementations. Words are stocked in a BK-Tree ( http://blog.notdot.net/2007/4/Damn-Cool-Algorithms-Part-1-BK-Treeshttp://blog.notdot.net/2007/4/Damn-Cool-Algorithms-Part-1-BK-Trees ), so the word reading is not thread safe, but very performant. The Levenshtein dictionnary allows to search a word within a distance.  
 
-* Some classes to make the java API of ElasticSearch (https://logging.apache.org/log4j/2.x/) easier to use, in the package _io.tessilab.oss.openutils.elasticsearch_
+#### _io.tessilab.oss.openutils.distance_
 
-* An OutputStream and a PrintStream to print on a Log4j log (https://logging.apache.org/log4j/2.x/) in the package _io.tessilab.oss.openutils.io_
+Some distances implementations, like levenshtein distance, Euclidean distance, or Jaro distance. 
 
-* The classes to create a lock system, using a database (or the file system) in the scenario when there are many workers who must perform several parallel tasks. The classes are in the package _io.tessilab.oss.openutils.locker_
+#### _io.tessilab.oss.openutils.elasticsearch_
+
+Some classes to make the java API of ElasticSearch (https://logging.apache.org/log4j/2.x/) easier to use.
+
+#### _io.tessilab.oss.openutils.io_
+
+An OutputStream and a PrintStream to print on a Log4j log (https://logging.apache.org/log4j/2.x/).
+
+#### _io.tessilab.oss.openutils.hocr_
+
+An implementation to read and manager hocr format files ( https://en.wikipedia.org/wiki/HOCR ).
+
+#### _io.tessilab.oss.openutils.locker_
+
+* The classes to create a lock system, using a database (or the file system) in the scenario when there are many workers who must perform several parallel tasks.
+
+#### _io.tessilab.oss.openutils.progressbar_
 
 * A very simple progress bar, taken from https://github.com/ctongfei/progressbar. The behaviour has been totaly changed to allow to the main thread to control the progress bar. 
+
+#### _io.tessilab.oss.openutils.treedisplaying_
 
 * A tree to display a system, like the Linux one, in the package _io.tessilab.oss.openutils.treedisplaying_.  It looks like  : 
 
