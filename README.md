@@ -28,14 +28,41 @@ Tessilab OpenUtils contains, in each package :
 
 ### _io.tessilab.openutils_
 
+* **FileUtils** : Some useful functions to read files, to transform files it to a String, etc. 
 
+* **CSVReader** : A simple CSV reader
 
-* Some useful functions to read files, to transform files it to a String, etc. (cf FileUtils, from the package _io.tessilab.openutils_) A simple CSV reader.
+* **HashMapMap** : Some data structures, as a HashMap containing (as values) anothers HashMaps.
 
-* Some data structures, as a HashMap containing (as values) anothers HashMaps (class HashMapMap).
+* **HistogramUtils** : A library to work with histograms
 
+* **InstanceFactory** : An abstract objet factory used in concurrent context. It allows to share a limited number of instances of a certain class by many threads. 
 
-* Two ways to implement the observer design pattern. In the first one, the observer must access the subject using the subject accessors. In the other, the subject provides the information via a parametrizable object. Both ways are implemented in interfaces in the package _io.tessilab.oss.openutils.designpatterns.observer_
+* **MyDate** : A Tessi lab implementation of a date object.
+
+* **MyToleranceMath** : An object to perform some mathematical operations using a given tolerance. 
+
+* **SharedCloseable** : A class to manage the use of an instance of a closeable by many objects. When the last object ends using the object, the object is close. 
+
+* **StringUtils** :  An API to perform operations on String.
+
+### _io.tessilab.openutils.bbox_
+
+Some classes to work with the interface BBoxable. An object that implements the BBoxable interface is an object that can be surrounded by a rectangle. A generic object is given (BBoxer) and some util files (BBoxableGroup, BBoxableUtils). 
+
+### _io.tessilab.openutils.data_
+
+A package containing the data acess utilies, the ContentLoader class, and the class to manage the instances, the ContentLoaderProvider. A ContentLoader is a class that adds an abstract layer in the files and external elements manage by your application. 
+
+A ContentLoader loads objects indexed by other types of object, both of them parametrized. A cache can be enable, so save the output in a map. 
+
+### _io.tessilab.oss.openutils.designpatterns.observer_
+
+Two ways to implement the observer design pattern. In the first one, the observer must access the subject using the subject accessors. In the other, the subject provides the information via a parametrizable object. Both ways are implemented in interfaces in this package.
+
+### _io.tessilab.oss.openutils.dictionary_
+
+Many dictionnary implementations. Words are stocked in a BK-Tree ( http://blog.notdot.net/2007/4/Damn-Cool-Algorithms-Part-1-BK-Treeshttp://blog.notdot.net/2007/4/Damn-Cool-Algorithms-Part-1-BK-Trees ) 
 
 * Some classes to make the java API of ElasticSearch (https://logging.apache.org/log4j/2.x/) easier to use, in the package _io.tessilab.oss.openutils.elasticsearch_
 
