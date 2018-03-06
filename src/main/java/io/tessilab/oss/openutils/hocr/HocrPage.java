@@ -15,15 +15,15 @@
  */
 package io.tessilab.oss.openutils.hocr;
 
-import java.awt.Rectangle;
+import org.jsoup.nodes.Element;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.NoninvertibleTransformException;
 import java.util.HashSet;
 import java.util.Set;
-
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.jsoup.nodes.Element;
 
 /**
  * Class: Page in Hocr documents
@@ -49,7 +49,7 @@ public class HocrPage extends HocrNode {
     private HocrLine freeLine;
     private boolean freeInit = false;
 
-    private static final Logger LOGGER = LogManager.getLogger(HocrPage.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(HocrPage.class);
 
     private static final long serialVersionUID = -1981770559350916034L;
 

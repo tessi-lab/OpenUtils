@@ -18,9 +18,9 @@ package io.tessilab.oss.openutils.data;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.javaruntype.type.Type;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Defines the interface of an object that is able to load some content from an identifier.
@@ -31,7 +31,7 @@ import org.javaruntype.type.Type;
  */
 public abstract class ContentLoader<LOADED_TYPE, IDENTIFIER_TYPE> {
 
-    private static final Logger LOGGER = LogManager.getLogger(ContentLoader.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ContentLoader.class);
 
     private final Map<IDENTIFIER_TYPE, LOADED_TYPE> cachedContent;
     private final boolean cacheContent;

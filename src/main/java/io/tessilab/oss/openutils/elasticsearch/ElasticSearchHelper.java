@@ -21,8 +21,8 @@ import java.net.UnknownHostException;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 import org.elasticsearch.ElasticsearchException;
 import org.elasticsearch.action.ActionRequestValidationException;
 import org.elasticsearch.action.bulk.BulkRequestBuilder;
@@ -50,7 +50,7 @@ import static org.elasticsearch.common.xcontent.XContentFactory.jsonBuilder;
  */
 public class ElasticSearchHelper implements AutoCloseable {
 
-    private static final Logger LOGGER = LogManager.getLogger(ElasticSearchHelper.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ElasticSearchHelper.class);
 
     private static final int MAX_NUMBER_ATTEMPTS = 720; // The max waith time is
                                                         // near an hour
@@ -92,16 +92,16 @@ public class ElasticSearchHelper implements AutoCloseable {
                 multiGetResponse = multiGetRequestBuilder.get();
                 done = true;
             } catch (ElasticsearchException ex) {
-                LOGGER.trace(ex);
+                LOGGER.trace("", ex);
                 LOGGER.warn("A node was not available. Trying to reconnect.");
                 try {
                     Thread.sleep(5000);
                 } catch (InterruptedException ex1) {
-                    LOGGER.error(ex1);
+                    LOGGER.error("", ex1);
                 }
             } catch (ActionRequestValidationException ex) {
                 // Here the multiget failed
-                LOGGER.trace(ex);
+                LOGGER.trace("", ex);
                 LOGGER.trace("The multi get request failed");
                 throw new HelperMissingContentException();
             }
@@ -129,13 +129,13 @@ public class ElasticSearchHelper implements AutoCloseable {
             IndexResponse response = helperClient.prepareIndex(index, type, id).setSource(json).get();
             return response;
         } catch (ElasticsearchException e) {
-            LOGGER.warn(e);
+            LOGGER.warn("", e);
             if (attemptNumber < MAX_NUMBER_ATTEMPTS) {
                 LOGGER.warn("The get could not be done, because there was a problem in the db. Retrying to load it");
                 try {
                     Thread.sleep(5000);
                 } catch (InterruptedException ex) {
-                    LOGGER.trace(ex);
+                    LOGGER.trace("", ex);
                 }
                 return prepareIndex(type, id, attemptNumber++, json);
             }
@@ -161,13 +161,13 @@ public class ElasticSearchHelper implements AutoCloseable {
             IndexResponse response = helperClient.prepareIndex(index, type, id).setSource(xb).get();
             return response;
         } catch (ElasticsearchException e) {
-            LOGGER.warn(e);
+            LOGGER.warn("", e);
             if (attemptNumber < MAX_NUMBER_ATTEMPTS) {
                 LOGGER.warn("The get could not be done, because there was a problem in the db. Retrying to load it");
                 try {
                     Thread.sleep(5000);
                 } catch (InterruptedException ex) {
-                    LOGGER.trace(ex);
+                    LOGGER.trace("", ex);
                 }
                 return prepareIndex(type, id, attemptNumber++, xb);
             }
@@ -194,13 +194,13 @@ public class ElasticSearchHelper implements AutoCloseable {
             IndexResponse response = helperClient.prepareIndex(index, type).setSource(json).get();
             return response;
         } catch (ElasticsearchException e) {
-            LOGGER.trace(e);
+            LOGGER.trace("", e);
             if (attemptNumber < MAX_NUMBER_ATTEMPTS) {
                 LOGGER.warn("The index could not be query, because there was a problem in the db. Retrying to load it");
                 try {
                     Thread.sleep(5000);
                 } catch (InterruptedException ex) {
-                    LOGGER.trace(ex);
+                    LOGGER.trace("", ex);
                 }
                 return prepareIndex(type, attemptNumber++, json);
             }
@@ -226,13 +226,13 @@ public class ElasticSearchHelper implements AutoCloseable {
             GetResponse response = helperClient.prepareGet(index, type, id).get();
             return response;
         } catch (ElasticsearchException e) {
-            LOGGER.warn(e);
+            LOGGER.warn("", e);
             if (attemptNumber < MAX_NUMBER_ATTEMPTS) {
                 LOGGER.warn("The get could not be done, because there was a problem in the db. Retrying to load it");
                 try {
                     Thread.sleep(5000);
                 } catch (InterruptedException ex) {
-                    LOGGER.trace(ex);
+                    LOGGER.trace("", ex);
                 }
                 return prepareGet(type, id, attemptNumber++);
             }
@@ -267,21 +267,19 @@ public class ElasticSearchHelper implements AutoCloseable {
             UpdateResponse response = helperClient.update(updateRequest).get();
             return response;
         } catch (ElasticsearchException e) {
-            LOGGER.warn(e);
+            LOGGER.warn("", e);
             if (attemptNumber < MAX_NUMBER_ATTEMPTS) {
                 LOGGER.warn("The update could not be done , because there was a problem in the db. Retrying to load it");
                 try {
                     Thread.sleep(5000);
                 } catch (InterruptedException ex) {
-                    LOGGER.trace(ex);
+                    LOGGER.trace("", ex);
                 }
                 return update(type, iD, attemptNumber++, fieldName, value);
             }
             throw new ElasticSearchHelperError(e);
         } catch (InterruptedException | ExecutionException | IOException ex) {
-            LOGGER.error("Not able to update the document {}/{}/{} in the field", this.index, type, iD, fieldName);
-            LOGGER.error(ex);
-            LOGGER.catching(ex);
+            LOGGER.error("Not able to update the document {}/{}/{} in the field", this.index, type, iD, fieldName, ex);
             throw new ElasticSearchHelperError("Not able to update the document" + iD);
         }
     }
@@ -334,13 +332,13 @@ public class ElasticSearchHelper implements AutoCloseable {
         try {
             return bulkRequest.execute().actionGet();
         } catch (ElasticsearchException e) {
-            LOGGER.warn(e);
+            LOGGER.warn("", e);
             if (attemptNumber < MAX_NUMBER_ATTEMPTS) {
                 LOGGER.warn("The update could not be done , because there was a problem in the db. Retrying to load it");
                 try {
                     Thread.sleep(5000);
                 } catch (InterruptedException ex) {
-                    LOGGER.trace(ex);
+                    LOGGER.trace("", ex);
                 }
                 return executeBulkRequest(bulkRequest, attemptNumber++);
             }
@@ -369,13 +367,13 @@ public class ElasticSearchHelper implements AutoCloseable {
         try {
             return helperClient.prepareDelete(this.index, type, description).get();
         } catch (ElasticsearchException e) {
-            LOGGER.warn(e);
+            LOGGER.warn("", e);
             if (attemptNumber < MAX_NUMBER_ATTEMPTS) {
                 LOGGER.warn("The delete could not be done, because there was a problem in the db. Retrying to load it");
                 try {
                     Thread.sleep(5000);
                 } catch (InterruptedException ex) {
-                    LOGGER.trace(ex);
+                    LOGGER.trace("", ex);
                 }
                 return prepareDelete(type, description, attemptNumber++);
             }

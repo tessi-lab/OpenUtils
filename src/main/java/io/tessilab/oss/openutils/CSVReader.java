@@ -21,7 +21,9 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
-import org.apache.logging.log4j.LogManager;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * A class to help to read a csv line by line. It loads a line, and provides an
@@ -41,7 +43,7 @@ public class CSVReader {
         }
     }
 
-    private static final org.apache.logging.log4j.Logger LOGGER = LogManager.getLogger(CSVReader.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(CSVReader.class);
 
     private final BufferedReader reader;
     private final String[] colNames;
@@ -84,7 +86,7 @@ public class CSVReader {
                 colNames = null;
             }
         } catch (IOException ex) {
-            LOGGER.warn(ex);
+            LOGGER.warn("", ex);
             throw new CSVReadingException(ex);
         }
         
@@ -131,7 +133,7 @@ public class CSVReader {
             }
             return true;
         } catch (IOException ex) {
-            LOGGER.warn(ex);
+            LOGGER.warn("", ex);
             throw new CSVReadingException(ex);
         }
     }

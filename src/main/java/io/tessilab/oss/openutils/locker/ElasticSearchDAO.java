@@ -24,8 +24,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.TimeZone;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 import org.elasticsearch.action.get.GetResponse;
 
 /**
@@ -37,7 +37,7 @@ import org.elasticsearch.action.get.GetResponse;
  */
 public class ElasticSearchDAO implements DAO {
 
-    private static final Logger LOGGER = LogManager.getLogger(ElasticSearchDAO.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ElasticSearchDAO.class);
     
     private static final String endedJobName = "ended";
 

@@ -15,14 +15,14 @@
  */
 package io.tessilab.oss.openutils.hocr;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 import org.jsoup.nodes.Element;
 
 /* Class: Line in Hocr documents*/
 public class HocrLine extends HocrNode {
 
-    private static final Logger LOGGER = LogManager.getLogger(HocrLine.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(HocrLine.class);
 
     private static final long serialVersionUID = -5971259740000222465L;
 

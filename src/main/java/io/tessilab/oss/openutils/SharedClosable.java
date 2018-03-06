@@ -21,8 +21,8 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Supplier;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 
 /**
  * A class that allows to many threads to share an object and close it if no one
@@ -47,7 +47,7 @@ public class SharedClosable<T extends AutoCloseable> {
 
     }
 
-    private static final Logger LOGGER = LogManager.getLogger(SharedClosable.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(SharedClosable.class);
 
     private static final ScheduledExecutorService threadPool = Executors.newScheduledThreadPool(1, new ThreadFactory() {
 

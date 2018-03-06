@@ -27,6 +27,7 @@ import java.io.StringWriter;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLDecoder;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.HashSet;
@@ -36,15 +37,15 @@ import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 import org.apache.commons.io.IOUtils;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 
 /**
  * The class containing many usefull functions related with IO files.
  */
 public class FileUtils {
 
-    private static final Logger LOGGER = LogManager.getLogger(FileUtils.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(FileUtils.class);
 
     private static final String ENCODING = "UTF-8";
 
@@ -72,9 +73,9 @@ public class FileUtils {
             return writer.toString();
         } catch (Exception e) {
             if (!resourcesOnly) {
-                return org.apache.commons.io.FileUtils.readFileToString(new File(filePath));
+                return org.apache.commons.io.FileUtils.readFileToString(new File(filePath), Charset.defaultCharset());
             } else {
-                throw new IOException("Error while reading the file: " + filePath);
+                throw new IOException("Error while reading the file: " + filePath, e);
             }
         }
     }
@@ -179,12 +180,8 @@ public class FileUtils {
      * @throws java.io.IOException A problem when writing the file
      */
     public static void serialize(Serializable obj, String path) throws IOException {
-        try {
-            FileOutputStream fos = new FileOutputStream(path);
-            ObjectOutputStream oos = new ObjectOutputStream(fos);
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(path))) {
             oos.writeObject(obj);
-            oos.close();
-            fos.close();
         } catch (Exception e) {
             LOGGER.debug("Exception while serializing", e);
             throw new IOException(e.getMessage());
@@ -195,22 +192,16 @@ public class FileUtils {
      * @param path
      *            A resource path.
      * @return The serialized object.
-     * @throws java.io.IOException A problem when writing the file
+     * @throws java.io.IOException A problem when reading the file
      */
     public static Object deserialize(String path) throws IOException {
-        Object obj = null;
-        try {
-            File file = new File(path);
-            FileInputStream inputFileStream = new FileInputStream(file);
-            ObjectInputStream objectInputStream = new ObjectInputStream(inputFileStream);
-            obj = objectInputStream.readObject();
-            objectInputStream.close();
-            inputFileStream.close();
+        final File file = new File(path);
+        try (ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream(file))) {
+            return objectInputStream.readObject();
         } catch (Exception e) {
             LOGGER.debug("Exception while deserializing", e);
             throw new IOException(e.getMessage());
         }
-        return obj;
     }
 
 }

@@ -21,12 +21,12 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.stream.Stream;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.parser.Tag;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Contains the HocrPages of the document, and all their metadata.
@@ -36,7 +36,7 @@ import org.jsoup.parser.Tag;
  */
 public class HocrDocument {
 
-    private static final Logger LOGGER = LogManager.getLogger(HocrDocument.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(HocrDocument.class);
 
     // keys : page numbers
     private Map<Integer, HocrPage> pages;
