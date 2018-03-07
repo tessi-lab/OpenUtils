@@ -17,6 +17,8 @@ package io.tessilab.oss.openutils.dictionary;
 
 import io.tessilab.oss.openutils.FileUtils;
 import io.tessilab.oss.openutils.distance.words.LevenshteinDistance;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -25,8 +27,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Stream;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 
 /**
@@ -40,7 +40,7 @@ import org.apache.logging.log4j.Logger;
  */
 public class Dictionary {
 
-    private static final Logger LOGGER = LogManager.getLogger(Dictionary.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(Dictionary.class);
 
     protected BKTree<String> wordTree;
     protected Set<String> wordSet;

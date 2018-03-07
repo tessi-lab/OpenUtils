@@ -19,8 +19,8 @@ import java.io.PrintStream;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import jline.TerminalFactory;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 
 /**
  * @author Tongfei Chen
@@ -28,7 +28,7 @@ import org.apache.logging.log4j.Logger;
  */
 public class ProgressThread implements Runnable {
     
-    private static final Logger LOGGER = LogManager.getLogger(ProgressThread.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ProgressThread.class);
 
 
     volatile boolean running;

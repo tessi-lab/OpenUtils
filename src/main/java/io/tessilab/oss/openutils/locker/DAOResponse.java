@@ -15,8 +15,8 @@
  */
 package io.tessilab.oss.openutils.locker;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 
 /**
  * The class to encapsulate the answer of a {@link io.tessilab.oss.openutils.locker.DAO}
@@ -36,7 +36,7 @@ public class DAOResponse {
      */
     private final long date;
 
-    private static final Logger LOGGER = LogManager.getLogger(DAOResponse.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(DAOResponse.class);
 
     /**
      * Constructor for when the entry does not exists

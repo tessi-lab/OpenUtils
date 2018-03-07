@@ -17,9 +17,9 @@ package io.tessilab.oss.openutils.io;
 
 import java.io.IOException;
 import java.io.OutputStream;
-import org.apache.logging.log4j.Level;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
+import org.slf4j.event.Level;
 
 /**
  * The output stream who prints to a Log4j logger. 
@@ -38,7 +38,7 @@ public class LoggerOutputStream extends OutputStream {
     /**
      * The logger belonging to this class
      */
-    private static final Logger LOGGER = LogManager.getLogger(LoggerOutputStream.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(LoggerOutputStream.class);
 
     private final Logger outPut;
 
@@ -64,7 +64,7 @@ public class LoggerOutputStream extends OutputStream {
 
     public LoggerOutputStream(Class printingClass, Level logLevel) {
         this.printingClass = printingClass;
-        outPut = LogManager.getLogger(printingClass);
+        outPut = LoggerFactory.getLogger(printingClass);
         this.logLevel = logLevel;
         curBufLength = DEFAULT_BUFFER_LENGTH;
         buf = new byte[curBufLength];
@@ -113,7 +113,23 @@ public class LoggerOutputStream extends OutputStream {
         final byte[] bytes = new byte[count];
         System.arraycopy(buf, 0, bytes, 0, count);
         String str = new String(bytes);
-        outPut.log(logLevel, str);
+        switch (logLevel) {
+            case TRACE:
+                outPut.trace(str);
+                break;
+            case DEBUG:
+                outPut.debug(str);
+                break;
+            case INFO:
+                outPut.info(str);
+                break;
+            case WARN:
+                outPut.warn(str);
+                break;
+            case ERROR:
+                outPut.error(str);
+                break;
+        }
         count = 0;
     }
 

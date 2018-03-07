@@ -21,9 +21,9 @@ import java.awt.Rectangle;
 import java.io.Serializable;
 import java.util.List;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.jsoup.nodes.Element;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author galaad
@@ -32,7 +32,7 @@ import org.jsoup.nodes.Element;
 public abstract class HocrSection implements Serializable, BBoxable {
 
     private static final long serialVersionUID = 1313755691985000424L;
-    private static final Logger LOGGER = LogManager.getLogger(HocrSection.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(HocrSection.class);
 
     private String id;
     protected Rectangle bbox;

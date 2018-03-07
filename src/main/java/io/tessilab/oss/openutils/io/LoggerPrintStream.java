@@ -16,9 +16,9 @@
 package io.tessilab.oss.openutils.io;
 
 import java.io.PrintStream;
-import org.apache.logging.log4j.Level;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
+import org.slf4j.event.Level;
 
 /**
  * A printS
@@ -26,7 +26,7 @@ import org.apache.logging.log4j.Logger;
  */
 public class LoggerPrintStream extends PrintStream{
     
-    private static final Logger LOGGER = LogManager.getLogger(LoggerPrintStream.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(LoggerPrintStream.class);
 
     
     public LoggerPrintStream(Class printingClass, Level logLevel) {
@@ -35,7 +35,7 @@ public class LoggerPrintStream extends PrintStream{
     
     
     public static void main (String[] args) {
-        LoggerPrintStream stream  = new LoggerPrintStream(LoggerPrintStream.class, Level.FATAL);
+        LoggerPrintStream stream  = new LoggerPrintStream(LoggerPrintStream.class, Level.ERROR);
         stream.println("Test");
         stream.println("Hola que ase");
         stream.println("Esta guay este log");
