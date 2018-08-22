@@ -159,10 +159,14 @@ public class HocrUtils {
         return parseToDocument(htmlContent);
     }
 
-    public static BBoxer getBBoxerForPage(Document document) {
-        final Elements ocrPage = getElementsByClass(document,"ocr_page");
-        final String title = ocrPage.attr("title");
-        return new BBoxer(buildRectangleFromHtmlBBox(title));
+    public static BBoxer getBBoxerForPage(Document document, int pageNumber) {
+        final Elements ocrPages = getElementsByClass(document, "ocr_page");
+        if (!ocrPages.isEmpty() && ocrPages.size() > pageNumber) {
+            final Element ocrPage = ocrPages.get(pageNumber);
+            final String title = ocrPage.attr("title");
+            return new BBoxer(buildRectangleFromHtmlBBox(title));
+        }
+        return new BBoxer(0, 0, 0, 0);
     }
 
     public static List<HocrXWord> buildHocrXWords(Element element) {
