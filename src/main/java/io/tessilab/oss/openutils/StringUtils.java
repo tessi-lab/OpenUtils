@@ -363,4 +363,7 @@ public class StringUtils {
         return false;
     }
 
+    public static boolean isNotEmpty(String s) {
+        return s != null && s.length() > 0;
+    }
 }
