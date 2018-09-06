@@ -42,13 +42,27 @@ public class StringUtils {
      * @return True if the input string is an Integer
      */
     public static boolean isInteger(String input) {
-        try {
-            Integer.parseInt(input);
-            return true;
-        } catch (Exception e) {
-//            LOGGER.trace(e);
+        if (input == null) {
             return false;
         }
+        int length = input.length();
+        if (length == 0) {
+            return false;
+        }
+        int i = 0;
+        if (input.charAt(0) == '-') {
+            if (length == 1) {
+                return false;
+            }
+            i = 1;
+        }
+        for (; i < length; i++) {
+            char c = input.charAt(i);
+            if (c < '0' || c > '9') {
+                return false;
+            }
+        }
+        return true;
     }
 
     /**
