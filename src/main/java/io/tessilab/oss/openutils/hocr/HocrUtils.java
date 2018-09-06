@@ -15,26 +15,42 @@
  */
 package io.tessilab.oss.openutils.hocr;
 
+import io.tessilab.oss.openutils.StringUtils;
 import io.tessilab.oss.openutils.bbox.BBoxable;
 import io.tessilab.oss.openutils.bbox.BBoxableUtils;
 
+import io.tessilab.oss.openutils.bbox.BBoxer;
 import java.awt.Rectangle;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Rectangle2D;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.UUID;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import org.apache.commons.io.Charsets;
+import org.apache.commons.io.IOUtils;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 
 public class HocrUtils {
+
+    private static final Pattern PATTERN_BBOX = Pattern.compile("^.*bbox (.*?);.*$");
+    private static final Pattern PATTERN_BBOX_AND_CONF = Pattern.compile("bbox (.*); x_wconf (.*).*$");
 
     private HocrUtils() {
     }
 
     /**
      * fuse multiple hocr pages into one
-     * 
-     * @param hocrs
-     *            an array of hocrpages
+     *
+     * @param pages
+     * @param pageNumber
      * @return the final hocr page
      */
     public static HocrPage fuseHOCRs(HocrPage[] pages, int pageNumber) {
@@ -115,4 +131,62 @@ public class HocrUtils {
         return new Rectangle(x, y, w, h);
     }
 
+    public static Document parseToDocument(String htmlContent) {
+        return Jsoup.parse(htmlContent);
+    }
+
+    public static Rectangle buildRectangleFromHtmlBBox(String title) {
+        Matcher matcher = PATTERN_BBOX.matcher(title);
+        if (matcher.matches()) {
+            return buildRectangle(matcher.group(1));
+        }
+        return null;
+    }
+
+    public static Rectangle buildRectangle(String bboxCoor) {
+        String[] splits = bboxCoor.split(";?\\s+");
+        int index = 0;
+        int x1 = Integer.parseInt(splits[index]);
+        int y1 = Integer.parseInt(splits[index + 1]);
+        int w = Integer.parseInt(splits[index + 2]) - x1;
+        int h = Integer.parseInt(splits[index + 3]) - y1;
+        return new Rectangle(x1, y1, w, h);
+    }
+
+    public static Document parseHtmlFileToDocument(String htmlFilePath) throws IOException {
+        final File file = new File(htmlFilePath);
+        final String htmlContent = IOUtils.toString(file.toURI(), Charsets.toCharset("UTF-8"));
+        return parseToDocument(htmlContent);
+    }
+
+    public static BBoxer getBBoxerForPage(Document document, int pageNumber) {
+        final Elements ocrPages = getElementsByClass(document, "ocr_page");
+        if (!ocrPages.isEmpty() && ocrPages.size() > pageNumber) {
+            final Element ocrPage = ocrPages.get(pageNumber);
+            final String title = ocrPage.attr("title");
+            return new BBoxer(buildRectangleFromHtmlBBox(title));
+        }
+        return new BBoxer(0, 0, 0, 0);
+    }
+
+    public static List<HocrXWord> buildHocrXWords(Element element) {
+        List<HocrXWord> words = new ArrayList<>();
+        final Elements ocrxWords = getElementsByClass(element, "ocrx_word");
+        ocrxWords.forEach(w -> {
+            final String text = w.text().replaceAll("’", "").replaceAll("N‘", "N°").replaceAll("n‘", "n°").replaceAll("N\"", "N°");
+            if (StringUtils.isNotEmpty(text)) {
+                final String title = w.attr("title");
+                Matcher matcher = PATTERN_BBOX_AND_CONF.matcher(title);
+                if (matcher.matches()) {
+                    final Rectangle rectangle = buildRectangle(matcher.group(1));
+                    words.add(new HocrXWord(UUID.randomUUID().toString(), rectangle, null, text, Double.parseDouble(matcher.group(2))));
+                }
+            }
+        });
+        return words;
+    }
+
+    public static Elements getElementsByClass(Element element, String className) {
+        return element.getElementsByClass(className);
+    }
 }
